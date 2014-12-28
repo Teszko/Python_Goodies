@@ -64,11 +64,11 @@ class HCZJ3translator:
         anker2_RH = 15 + (anker2 * 5)
         ratio1 = self.__getImpedanceRatio(impedance, line, anker1)
         ratio1_RH = anker1_RH - (5 * ratio1)
-        ratio2 =  self.__getImpedanceRatio(impedance, line+1, anker1)
+        ratio2 =  self.__getImpedanceRatio(impedance, line+1, anker2)
         ratio2_RH = anker2_RH - (5 * ratio2)
 
         return ratio2_RH * tempRatio + ratio1_RH * (1 - tempRatio)
 
 
 Sensor = HCZJ3translator()
-print(Sensor.getRH(30, 300))
+print(Sensor.getRH(25, 83))
