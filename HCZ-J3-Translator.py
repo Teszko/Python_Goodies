@@ -1,13 +1,14 @@
 """
     Author: Bartosz Henryk Iwaniuk (b.iwaniuk@campus.tu-berlin.de)
 
-    Class to interpolate values in a given impedance table, specifically for the HCZ-J3 Humidity Sensor
-    For this example see: http://www.produktinfo.conrad.com/datenblaetter/1100000-1199999/001170516-da-01-en-FEUCHTIGKEITS_SENSOR_HCZ_J3A_N_.pdf
+    HCZJ3translator is a class to interpolate values in a given impedance table, specifically for the HCZ-J3 Humidity Sensor
+    For this specific part see: http://www.produktinfo.conrad.com/datenblaetter/1100000-1199999/001170516-da-01-en-FEUCHTIGKEITS_SENSOR_HCZ_J3A_N_.pdf
 """
 
 import math
 
 class HCZJ3translator:
+
     impedanceTable = [
         [20000.0, 20000.0, 9900.0, 4400.0, 1900.0, 810.0, 420.0, 211.0, 109.0, 63.0, 37.0, 22.0, 14.0, 9.0, 6.0, 4.0, 0.0],  # < 5 °C
         [20000.0, 20000.0, 9900.0, 4400.0, 1900.0, 810.0, 420.0, 211.0, 109.0, 63.0, 37.0, 22.0, 14.0, 9.0, 6.0, 4.0, 0.0],  # 5 °C
@@ -48,6 +49,7 @@ class HCZJ3translator:
         :return: Relative humidity based on interpolated reference values.
         """
         impedance = min(max(impedance, 0), 20000)
+        temp = min(max(temp, 0), 50)
         tempRatio = self.__getTempRatio(temp)
         line = self.__getLine(temp)
         anker1 = self.__getAnker(line, impedance)
@@ -63,8 +65,4 @@ class HCZJ3translator:
 
 
 Sensor = HCZJ3translator()
-print(Sensor.getRH(5, 1900))
-print(Sensor.getRH(7.5, 700))
-print(Sensor.getRH(20, 7200))
-print(Sensor.getRH(50, 1.1))
-print(Sensor.getRH(25, 23))
+print(Sensor.getRH(10, 150))
